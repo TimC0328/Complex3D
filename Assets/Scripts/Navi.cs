@@ -21,8 +21,8 @@ public class Navi : MonoBehaviour
 
     void Update()
     {
-       // if (cameraHUD.activeSelf)
-        //    return;
+        if (cameraHUD.activeSelf)
+            return;
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -48,8 +48,7 @@ public class Navi : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 100f, layerMask))
         {
-            //hit.collider.gameObject.GetComponent<Interactable>().Interact();
-            Debug.Log("Hit!");
+            hit.collider.gameObject.GetComponent<Interactable>().Interact();
 
         }
     }
