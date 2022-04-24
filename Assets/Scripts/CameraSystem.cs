@@ -13,7 +13,10 @@ public class CameraSystem : MonoBehaviour
     private Camera fpsCam;
 
     [SerializeField]
-    private List<Camera> allCameras; 
+    private List<Camera> allCameras;
+    
+    [SerializeField]
+    private GameObject rooms;
 
     // Start is called before the first frame update
     void Awake()
@@ -21,7 +24,10 @@ public class CameraSystem : MonoBehaviour
         camSystem = transform.GetChild(0).gameObject;
         camList = camSystem.transform.GetChild(0).gameObject;
         fpsCam = GameObject.Find("Navigator/Body/Main Camera").GetComponent<Camera>();
-        
+
+        rooms = GameObject.Find("Environment/Complex/Rooms");
+
+
         allCameras = new List<Camera>();
     }
 
@@ -54,10 +60,24 @@ public class CameraSystem : MonoBehaviour
             child.GetChild(0).gameObject.GetComponent<Text>().text = "Camera " + i;
             i++;
         }
+       foreach (Transform child in rooms.transform)
+        {
+            allCameras.Add(child.GetChild(0).gameObject.GetComponent<Camera>());
+        }
     }
 
-    void ChangeCamera(int camID)
+    public void ChangeCamera(int camID)
     {
+        if(camID == -1)
+        {
+            currentCam.enabled = false;
+            fpsCam.enabled = true;
+            return;
+        }
+        fpsCam.enabled = false;
 
+        currentCam.enabled = false;
+        currentCam = allCameras[camID];
+        currentCam.enabled = true;
     }
 }

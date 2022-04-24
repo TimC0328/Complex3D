@@ -7,11 +7,12 @@ public class Rescue : MonoBehaviour
 {
     private CharacterController controller;
 
-    public enum States { Default, Pause, Attack, Damage, Dialogue }
-    public States state = 0;
+    private enum States { Default, Pause, Attack, Damage, Dialogue }
+    [SerializeField] 
+    private States state = 0;
 
-    public float speed = 12.0f;
-    public float turnSpeed = 120.0f;
+    private float speed = 3.0f;
+    private float turnSpeed = 150.0f;
 
     void Awake()
     {
@@ -21,6 +22,7 @@ public class Rescue : MonoBehaviour
     void Update()
     {
         HandleMovement();
+        HandleCombat();
     }
 
     void HandleMovement()
@@ -36,6 +38,10 @@ public class Rescue : MonoBehaviour
         if (state == States.Attack)
             return;
 
+        if (Input.GetKey(KeyCode.LeftControl))
+            speed = 6f;
+        else
+            speed = 3f;
 
         Vector3 moveDir;
 
@@ -43,5 +49,25 @@ public class Rescue : MonoBehaviour
         // moves the character in horizontal direction
         //controller.Move(moveDir * Time.deltaTime - Vector3.up * 0.1f);
         controller.Move(moveDir * Time.deltaTime);
+    }
+
+    void HandleCombat()
+    {
+        if (state != States.Default && state != States.Attack)
+            return;
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            state = States.Attack;
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("Fire!");
+            }
+        }
+        else
+            state = States.Default;
+
+
+
     }
 }
