@@ -18,6 +18,9 @@ public class Rescue : MonoBehaviour
 
     private Vector3 weaponOffset = new Vector3(0f, 1.4f, 0f);
 
+    [SerializeField]
+    private int health = 100;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -26,6 +29,7 @@ public class Rescue : MonoBehaviour
     void Start()
     {
         GameManager.Instance.rescue = this;
+        GameManager.Instance.EnableEnemies();
     }
 
     void Update()
@@ -36,8 +40,8 @@ public class Rescue : MonoBehaviour
 
     void HandleMovement()
     {
-        //No movement if paused
-        if (state == States.Pause || state == States.Dialogue)
+        //No movement if paused or being damaged
+        if (state == States.Pause || state == States.Dialogue || state == States.Damage)
             return;
 
 
@@ -55,8 +59,6 @@ public class Rescue : MonoBehaviour
         Vector3 moveDir;
 
         moveDir = transform.forward * Input.GetAxis("Vertical") * speed;
-        // moves the character in horizontal direction
-        //controller.Move(moveDir * Time.deltaTime - Vector3.up * 0.1f);
         controller.Move(moveDir * Time.deltaTime);
     }
 
@@ -77,15 +79,24 @@ public class Rescue : MonoBehaviour
                     Debug.DrawRay(transform.position + weaponOffset, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
                     Debug.Log("Did Hit");
 
-                    hit.collider.gameObject.GetComponent<Enemy>().Damage(10);
+                    hit.collider.gameObject.GetComponent<Enemy>().DamageEnemy(10);
                 }
                 Debug.Log("Fire!");
             }
         }
         else
             state = States.Default;
-
-
-
     }
+
+    public void SetState(int i)
+    {
+        state = (States)i;
+    }
+
+    public void Damage(int damage)
+    {
+        health -= damage;
+    }
+
+
 }

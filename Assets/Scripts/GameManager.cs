@@ -32,4 +32,20 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    void ChangeRoom()
+    {
+
+    }
+
+    public void EnableEnemies()
+    {
+        foreach(Enemy enemy in enemies)
+        {
+            if (enemy.roomID == currentRoom)
+                enemy.SetState(1);
+            else
+                enemy.SetState(0);
+        }
+    }
 }
