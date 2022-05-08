@@ -12,7 +12,7 @@ public class Navi : MonoBehaviour
 
     int layerMask = 1 << 8;
 
-    public GameObject cameraHUD = null;
+    public bool usingScreen = false;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class Navi : MonoBehaviour
 
     void Update()
     {
-        if (cameraHUD.activeSelf)
+        if (usingScreen)
             return;
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;

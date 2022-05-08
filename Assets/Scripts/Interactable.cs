@@ -7,24 +7,14 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     private string interactName;
 
-    private enum Types { Pickup, Camera }
+    private enum Types { Pickup, Camera, Map }
 
     [SerializeField]
     private Types interactType;
-   
-    [SerializeField]
-    private CameraSystem camSystem;
     
     void Awake()
     {
-        switch(interactType)
-        {
-            case Types.Pickup:
-                break;
-            case Types.Camera:
-                camSystem = GameObject.Find("Canvas").GetComponent<CameraSystem>();
-                break;
-        }
+
     }
 
     public void Interact()
@@ -35,13 +25,13 @@ public class Interactable : MonoBehaviour
             case Types.Pickup:
                 break;
             case Types.Camera:
-                Cameras();
+                GameObject.Find("Canvas").GetComponent<CameraSystem>().ToggleCameraSystem();
+                break;
+            case Types.Map:
+                GameObject.Find("Canvas").GetComponent<MapSystem>().ToggleMapSystem();
                 break;
         }
     }
 
-    void Cameras()
-    {
-        camSystem.ToggleCameraSystem();
-    }
+
 }

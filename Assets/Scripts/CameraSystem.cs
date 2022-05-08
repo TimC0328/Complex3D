@@ -45,6 +45,7 @@ public class CameraSystem : MonoBehaviour
     public void ToggleCameraSystem()
     {
         camSystem.SetActive(!camSystem.activeSelf);
+        GameManager.Instance.navi.usingScreen = !GameManager.Instance.navi.usingScreen;
     }
 
     public void ToggleCamList()
