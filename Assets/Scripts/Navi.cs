@@ -17,6 +17,7 @@ public class Navi : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
+        GameManager.Instance.navi = this;
     }
 
     void Update()

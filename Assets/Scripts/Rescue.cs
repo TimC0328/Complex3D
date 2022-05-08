@@ -14,11 +14,20 @@ public class Rescue : MonoBehaviour
     private float speed = 3.0f;
     private float turnSpeed = 150.0f;
 
+    int layerMaskCombat = 1 << 9;
+
+    private Vector3 weaponOffset = new Vector3(0f, 1.4f, 0f);
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
     }
- 
+
+    void Start()
+    {
+        GameManager.Instance.rescue = this;
+    }
+
     void Update()
     {
         HandleMovement();
@@ -53,6 +62,8 @@ public class Rescue : MonoBehaviour
 
     void HandleCombat()
     {
+        RaycastHit hit;
+
         if (state != States.Default && state != States.Attack)
             return;
 
@@ -61,6 +72,13 @@ public class Rescue : MonoBehaviour
             state = States.Attack;
             if(Input.GetKeyDown(KeyCode.Space))
             {
+                if (Physics.Raycast(transform.position + weaponOffset, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMaskCombat))
+                {
+                    Debug.DrawRay(transform.position + weaponOffset, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+                    Debug.Log("Did Hit");
+
+                    hit.collider.gameObject.GetComponent<Enemy>().Damage(10);
+                }
                 Debug.Log("Fire!");
             }
         }
