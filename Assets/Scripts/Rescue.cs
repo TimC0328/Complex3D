@@ -96,6 +96,8 @@ public class Rescue : MonoBehaviour
     public void Damage(int damage)
     {
         health -= damage;
+        if (health <= 0)
+            GameManager.Instance.GameOver();
     }
 
 

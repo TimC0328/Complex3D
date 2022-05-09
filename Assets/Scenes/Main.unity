@@ -2354,7 +2354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   playerBody: {fileID: 90489859}
-  cameraHUD: {fileID: 476595745}
+  usingScreen: 0
 --- !u!1 &605749172
 GameObject:
   m_ObjectHideFlags: 0
@@ -7437,6 +7437,7 @@ GameObject:
   - component: {fileID: 2009938826}
   - component: {fileID: 2009938830}
   - component: {fileID: 2009938831}
+  - component: {fileID: 2009938832}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -7556,6 +7557,18 @@ MonoBehaviour:
   countdownTimer: {fileID: 0}
   minutesLeft: 0
   secondsLeft: 0
+--- !u!114 &2009938832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009938825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236a464c01509df4395f33d871784e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2030585762
 PrefabInstance:
   m_ObjectHideFlags: 0

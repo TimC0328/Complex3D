@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void GameOver()
+    {
+        GameObject.Find("/Canvas").GetComponent<SceneSwitcher>().ChangeScene("GameOver");
+    }
+
     public void EnableEnemies()
     {
         foreach(Enemy enemy in enemies)

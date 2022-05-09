@@ -37,8 +37,7 @@ public class MapSystem : MonoBehaviour
             countdownTimer.text = string.Format("{0:00}:{1:00}", minutesLeft, secondsLeft);
         }
         else
-            Debug.Log("GAME OVER");
-
+            GameManager.Instance.GameOver();
     }
 
     public void ToggleMapSystem()
