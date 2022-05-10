@@ -49,8 +49,57 @@ public class Inventory : MonoBehaviour
             case Item.ItemType.Bypass:
                 items.Remove(item);
                 return;
+            case Item.ItemType.Weapon:
+                GameManager.Instance.rescue.currentItem = item;
+                return;
             default:
                 return;
         }
     }
+
+    public bool HandleWeapon(Item item)
+    {
+        Item ammo;
+
+        if (item == null)
+            return false;
+
+        if(item.amount == 0)
+        {
+            ammo = InventorySearch("Pistol Ammo");
+            if (ammo == null)
+                return false;
+            if (ammo.amount <= 12)
+            {
+                item.amount = ammo.amount;
+                ammo.amount = 0;
+            }
+            else if(ammo.amount > 12)
+            {
+                item.amount = 12;
+                ammo.amount -= 12;
+            }
+
+            if(ammo.amount <= 0)
+                items.Remove(ammo);
+            return true;
+        }
+        item.amount--;
+        return true;
+
+    }
+
+    Item InventorySearch(string itemName)
+    {
+        foreach (Item i in items)
+        {
+            if (i.itemName == itemName)
+            {
+                return i;
+            }
+        }
+        return null;
+    }
+
+
 }

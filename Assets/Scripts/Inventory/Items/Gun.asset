@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Gun
   m_EditorClassIdentifier: 
   itemName: Pistol
-  itemType: 0
-  amount: 0
+  itemType: 2
+  amount: 12

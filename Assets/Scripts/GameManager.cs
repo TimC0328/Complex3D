@@ -34,11 +34,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void ChangeRoom()
-    {
-
-    }
-
     public void GameOver()
     {
         GameObject.Find("/Canvas").GetComponent<SceneSwitcher>().ChangeScene("GameOver");

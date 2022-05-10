@@ -21,6 +21,8 @@ public class Rescue : MonoBehaviour
     [SerializeField]
     private int health = 100;
 
+    public Item currentItem = null;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -64,7 +66,6 @@ public class Rescue : MonoBehaviour
 
     void HandleCombat()
     {
-        RaycastHit hit;
 
         if (state != States.Default && state != States.Attack)
             return;
@@ -74,14 +75,10 @@ public class Rescue : MonoBehaviour
             state = States.Attack;
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                if (Physics.Raycast(transform.position + weaponOffset, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMaskCombat))
-                {
-                    Debug.DrawRay(transform.position + weaponOffset, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-                    Debug.Log("Did Hit");
-
-                    hit.collider.gameObject.GetComponent<Enemy>().DamageEnemy(10);
-                }
-                Debug.Log("Fire!");
+                if (Inventory.Instance.HandleWeapon(currentItem))
+                    FireWeapon();
+                else
+                    Debug.Log("Cannot fire!");
             }
         }
         else
@@ -100,5 +97,16 @@ public class Rescue : MonoBehaviour
             GameManager.Instance.GameOver();
     }
 
+    void FireWeapon()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + weaponOffset, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMaskCombat))
+        {
+            Debug.DrawRay(transform.position + weaponOffset, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+            Debug.Log("Did Hit");
 
+            hit.collider.gameObject.GetComponent<Enemy>().DamageEnemy(10);
+        }
+        Debug.Log("Fire!");
+    }
 }

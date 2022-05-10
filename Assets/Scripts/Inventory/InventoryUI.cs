@@ -15,6 +15,11 @@ public class InventoryUI : MonoBehaviour
 
     void OnEnable()
     {
+        UpdateSlots();
+    }
+
+    public void UpdateSlots()
+    {
         int total = Inventory.Instance.items.Count;
         GameObject slot;
         for (int i = 0; i < Inventory.Instance.size; i++)
