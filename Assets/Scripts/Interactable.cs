@@ -7,7 +7,7 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     private string interactName;
 
-    private enum Types { Pickup, Camera, Map }
+    private enum Types { Pickup, Camera, Map, Inventory }
 
     [SerializeField]
     private Types interactType;
@@ -29,6 +29,9 @@ public class Interactable : MonoBehaviour
                 break;
             case Types.Map:
                 GameObject.Find("Canvas").GetComponent<MapSystem>().ToggleMapSystem();
+                break;
+            case Types.Inventory:
+                GameObject.Find("Canvas").GetComponent<InventorySystem>().ToggleInventorySystem();
                 break;
         }
     }
