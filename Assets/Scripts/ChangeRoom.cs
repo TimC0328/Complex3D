@@ -11,6 +11,13 @@ public class ChangeRoom : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             temp = GameManager.Instance.currentRoom;
+
+            if (nextRoom == -1)
+            {
+                GameManager.Instance.Win();
+                return;
+            }
+
             GameManager.Instance.currentRoom = nextRoom;
             nextRoom = temp;
             GameManager.Instance.EnableEnemies();

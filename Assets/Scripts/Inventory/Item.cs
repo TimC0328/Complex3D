@@ -6,6 +6,7 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string itemName;
+    public string target;
     
     public enum ItemType { Keycard, Bypass, Weapon, Ammo};
     public ItemType itemType;

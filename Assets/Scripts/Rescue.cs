@@ -22,6 +22,7 @@ public class Rescue : MonoBehaviour
     private int health = 100;
 
     public Item currentItem = null;
+    public Interactable currentInteract = null;
 
     void Awake()
     {
@@ -38,6 +39,8 @@ public class Rescue : MonoBehaviour
     {
         HandleMovement();
         HandleCombat();
+        HandleInteraction();
+
     }
 
     void HandleMovement()
@@ -83,6 +86,18 @@ public class Rescue : MonoBehaviour
         }
         else
             state = States.Default;
+    }
+
+    void HandleInteraction()
+    {
+        if (state != States.Default || currentInteract == null)
+            return;
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            currentInteract.Interact();
+            Debug.Log("Interaction");
+        }
+
     }
 
     public void SetState(int i)

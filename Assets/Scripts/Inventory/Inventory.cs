@@ -47,6 +47,7 @@ public class Inventory : MonoBehaviour
         switch (item.itemType)
         {
             case Item.ItemType.Bypass:
+                GameObject.Find(item.target).SetActive(false);
                 items.Remove(item);
                 return;
             case Item.ItemType.Weapon:

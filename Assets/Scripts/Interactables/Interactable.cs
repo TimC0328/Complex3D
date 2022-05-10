@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    [SerializeField]
-    private string interactName;
+    public string interactName;
 
-    private enum Types { Pickup, Camera, Map, Inventory }
+
+    protected enum Types { Pickup, Camera, Map, Inventory, Power}
 
     [SerializeField]
-    private Types interactType;
+    protected Types interactType;
     
     void Awake()
     {
 
     }
 
-    public void Interact()
+    public virtual void Interact()
     {
         Debug.Log("Interacting with " + interactName);
         switch (interactType)
@@ -32,6 +32,8 @@ public class Interactable : MonoBehaviour
                 break;
             case Types.Inventory:
                 GameObject.Find("Canvas").GetComponent<InventorySystem>().ToggleInventorySystem();
+                break;
+            case Types.Power:
                 break;
         }
     }

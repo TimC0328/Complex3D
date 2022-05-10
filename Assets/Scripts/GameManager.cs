@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public int currentRoom = 0;
 
+    public Win winStats;
+
     void Awake()
     {
         if (_instance != null && _instance != this)
@@ -37,6 +39,12 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         GameObject.Find("/Canvas").GetComponent<SceneSwitcher>().ChangeScene("GameOver");
+    }
+
+    public void Win()
+    {
+        winStats.timeRemaining = GameObject.Find("/Canvas").GetComponent<MapSystem>().countdownTimer.text;
+        GameObject.Find("/Canvas").GetComponent<SceneSwitcher>().ChangeScene("Win");
     }
 
     public void EnableEnemies()

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class MapSystem : MonoBehaviour
 {
     private GameObject mapSystem;
-    [SerializeField]
-    private Text countdownTimer;
+
+    public Text countdownTimer;
 
     private float countdown = 600;
     public float minutesLeft;
